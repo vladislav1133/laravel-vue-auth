@@ -1,13 +1,18 @@
 <template>
-    <p>Timeline</p>
+    <p>{{index}}</p>
 </template>
 
 <script>
     export default {
-        name: "timeline"
+        data() {
+          return {
+              index: null
+          }
+        },
+        mounted() {
+            axios.get('/api/timeline').then((response) => {
+                this.index = response.data.data
+            })
+        }
     }
 </script>
-
-<style scoped>
-
-</style>

@@ -39,9 +39,7 @@
 
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="#"
-                                   onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                <a href="#" @click.prevent="signout">
                                     Logout
                                 </a>
                             </li>
@@ -54,13 +52,25 @@
 </template>
 
 <script>
-    import {mapGetters} from 'vuex'
+    import {mapGetters, mapActions} from 'vuex'
 
     export default {
-        name: "navigation",
+
         computed: mapGetters({
             user: 'auth/user'
-        })
+        }),
+
+        methods: {
+            ...mapActions({
+                logout: 'auth/logout'
+            }),
+
+            signout() {
+                this.logout().then(() => {
+                    this.$router.replace({name: 'home'})
+                })
+            }
+        }
     }
 </script>
 
